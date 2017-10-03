@@ -1,0 +1,73 @@
+<?php namespace Modules\Catalog\Tests\Repositories;
+
+use Modules\Catalog\Entities\CompanyRatingCategory;
+use Modules\Catalog\Repositories\CompanyRatingCategoryRepository;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Modules\Catalog\Tests\Traits\MakeCompanyRatingCategoryTrait;
+use Tests\ApiTestTrait;
+use Tests\TestCase;
+
+class CompanyRatingCategoryRepositoryTest extends TestCase
+{
+    use MakeCompanyRatingCategoryTrait, ApiTestTrait, DatabaseTransactions;
+
+    /**
+     * @var CompanyRatingCategoryRepository
+     */
+    protected $companyRatingCategoryRepo;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->companyRatingCategoryRepo = \App::make(CompanyRatingCategoryRepository::class);
+    }
+
+    /**
+     * @test create
+     */
+    public function testCreateCompanyRatingCategory()
+    {
+        $companyRatingCategory = $this->fakeCompanyRatingCategoryData();
+        $createdCompanyRatingCategory = $this->companyRatingCategoryRepo->create($companyRatingCategory);
+        $createdCompanyRatingCategory = $createdCompanyRatingCategory->toArray();
+        $this->assertArrayHasKey('id', $createdCompanyRatingCategory);
+        $this->assertNotNull($createdCompanyRatingCategory['id'], 'Created CompanyRatingCategory must have id specified');
+        $this->assertNotNull(CompanyRatingCategory::find($createdCompanyRatingCategory['id']), 'CompanyRatingCategory with given id must be in DB');
+        $this->assertModelData($companyRatingCategory, $createdCompanyRatingCategory);
+    }
+
+    /**
+     * @test read
+     */
+    public function testReadCompanyRatingCategory()
+    {
+        $companyRatingCategory = $this->makeCompanyRatingCategory();
+        $dbCompanyRatingCategory = $this->companyRatingCategoryRepo->find($companyRatingCategory->id);
+        $dbCompanyRatingCategory = $dbCompanyRatingCategory->toArray();
+        $this->assertModelData($companyRatingCategory->toArray(), $dbCompanyRatingCategory);
+    }
+
+    /**
+     * @test update
+     */
+    public function testUpdateCompanyRatingCategory()
+    {
+        $companyRatingCategory = $this->makeCompanyRatingCategory();
+        $fakeCompanyRatingCategory = $this->fakeCompanyRatingCategoryData();
+        $updatedCompanyRatingCategory = $this->companyRatingCategoryRepo->update($fakeCompanyRatingCategory, $companyRatingCategory->id);
+        $this->assertModelData($fakeCompanyRatingCategory, $updatedCompanyRatingCategory->toArray());
+        $dbCompanyRatingCategory = $this->companyRatingCategoryRepo->find($companyRatingCategory->id);
+        $this->assertModelData($fakeCompanyRatingCategory, $dbCompanyRatingCategory->toArray());
+    }
+
+    /**
+     * @test delete
+     */
+    public function testDeleteCompanyRatingCategory()
+    {
+        $companyRatingCategory = $this->makeCompanyRatingCategory();
+        $resp = $this->companyRatingCategoryRepo->delete($companyRatingCategory->id);
+        $this->assertTrue($resp);
+        $this->assertNull(CompanyRatingCategory::find($companyRatingCategory->id), 'CompanyRatingCategory should not exist in DB');
+    }
+}

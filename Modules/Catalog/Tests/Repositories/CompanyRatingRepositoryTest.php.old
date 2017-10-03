@@ -1,0 +1,74 @@
+<?php namespace Modules\Catalog\Tests\Repositories;
+
+use Modules\Catalog\Entities\CompanyRating;
+use Modules\Catalog\Repositories\CompanyRatingRepository;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Modules\Catalog\Tests\Traits\MakeCompanyRatingTrait;
+use Tests\ApiTestTrait;
+use Tests\TestCase;
+
+class CompanyRatingRepositoryTest extends TestCase
+{
+    use MakeCompanyRatingTrait, ApiTestTrait, DatabaseTransactions;
+
+    /**
+     * @var CompanyRatingRepository
+     */
+    protected $companyRatingRepo;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->companyRatingRepo = \App::make(CompanyRatingRepository::class);
+    }
+
+    /**
+     * @test create
+     */
+    public function testCreateCompanyRating()
+    {
+        $companyRating = $this->fakeCompanyRatingData();
+        $createdCompanyRating = $this->companyRatingRepo->create($companyRating);
+        $createdCompanyRating = $createdCompanyRating->toArray();
+        $this->assertArrayHasKey('id', $createdCompanyRating);
+        $this->assertNotNull($createdCompanyRating['id'], 'Created CompanyRating must have id specified');
+        $this->assertNotNull(CompanyRating::find($createdCompanyRating['id']),
+            'CompanyRating with given id must be in DB');
+        $this->assertModelData($companyRating, $createdCompanyRating);
+    }
+
+    /**
+     * @test read
+     */
+    public function testReadCompanyRating()
+    {
+        $companyRating = $this->makeCompanyRating();
+        $dbCompanyRating = $this->companyRatingRepo->find($companyRating->id);
+        $dbCompanyRating = $dbCompanyRating->toArray();
+        $this->assertModelData($companyRating->toArray(), $dbCompanyRating);
+    }
+
+    /**
+     * @test update
+     */
+    public function testUpdateCompanyRating()
+    {
+        $companyRating = $this->makeCompanyRating();
+        $fakeCompanyRating = $this->fakeCompanyRatingData();
+        $updatedCompanyRating = $this->companyRatingRepo->update($fakeCompanyRating, $companyRating->id);
+        $this->assertModelData($fakeCompanyRating, $updatedCompanyRating->toArray());
+        $dbCompanyRating = $this->companyRatingRepo->find($companyRating->id);
+        $this->assertModelData($fakeCompanyRating, $dbCompanyRating->toArray());
+    }
+
+    /**
+     * @test delete
+     */
+    public function testDeleteCompanyRating()
+    {
+        $companyRating = $this->makeCompanyRating();
+        $resp = $this->companyRatingRepo->delete($companyRating->id);
+        $this->assertTrue($resp);
+        $this->assertNull(CompanyRating::find($companyRating->id), 'CompanyRating should not exist in DB');
+    }
+}

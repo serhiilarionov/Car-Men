@@ -1,0 +1,39 @@
+<?php namespace $NAMESPACE_MODEL$;
+
+use $NAMESPACE_MODEL_EXTEND$ as Model;
+use Prettus\Repository\Contracts\Presentable;
+use Prettus\Repository\Traits\PresentableTrait;
+$SOFT_DELETE_IMPORT$
+$DOCS$
+class $MODEL_NAME$ extends Model implements Presentable
+{
+$SOFT_DELETE$
+    use PresentableTrait;
+
+    public $table = '$TABLE_NAME$';
+    $SOFT_DELETE_DATES$
+    $PRIMARY$
+    public $fillable = [
+        $FIELDS$
+    ];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        $CAST$
+    ];
+
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        $RULES$
+    ];
+
+    $RELATIONS$
+}

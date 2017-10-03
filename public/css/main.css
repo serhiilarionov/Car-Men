@@ -1,0 +1,17 @@
+.content-wrapper #dataTableBuilder_wrapper{
+    overflow-x: auto;
+}
+div.checkbox{
+    padding: 0 20px;
+}
+
+div.primary-cat{
+    background: gray;
+    padding: 0 10px;
+    color: #fff;
+    font-weight: bold;
+}
+.alert-message{
+    display: block;
+    margin: 0 auto;
+}

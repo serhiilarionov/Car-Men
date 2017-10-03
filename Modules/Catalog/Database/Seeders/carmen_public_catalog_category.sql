@@ -1,0 +1,15 @@
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (1, 'СТО', true, null);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (2, 'Двигатель', true, 1);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (3, 'Коробка передач', true, 1);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (4, 'Ходовая', true, 1);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (5, 'Кузовной ремонт', true, 1);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (6, 'Электрооборудование', true, 1);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (7, 'Техобслуживание', true, 1);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (8, 'Тюнинг', true, 1);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (9, 'ГБО', true, 1);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (42, 'Другое', true, 1);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (10, 'Автомойки', true, null);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (18, 'Шиномонтаж', true, null);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (32, 'АЗС', true, null);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (41, 'Автомагазины', false, null);
+INSERT INTO public.catalog_category (id, name, active, parent_id) VALUES (27, 'Автостоянки', false, null);

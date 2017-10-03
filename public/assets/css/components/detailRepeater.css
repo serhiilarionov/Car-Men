@@ -1,0 +1,8 @@
+.repeat-element {
+    padding: 5px 0;
+}
+
+.repeat-list {
+    max-height: 130px;
+    overflow: auto;
+}

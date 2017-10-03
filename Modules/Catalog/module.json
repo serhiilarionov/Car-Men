@@ -1,0 +1,17 @@
+{
+    "name": "Catalog",
+    "alias": "catalog",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Catalog\\Providers\\CatalogServiceProvider",
+        "Modules\\Catalog\\Providers\\EventServiceProvider",
+        "Modules\\Catalog\\Providers\\ConsoleCommandProvider"
+    ],
+    "aliases":{},
+    "files": [
+        "start.php"
+    ]
+}
